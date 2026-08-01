@@ -1,0 +1,40 @@
+const int buttonPin = 18;
+const int ledPin = 2;
+const int buzzerPin = 23;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(buttonPin, INPUT_PULLUP);   
+  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+
+  digitalWrite(ledPin, LOW);
+  noTone(buzzerPin);
+
+  Serial.println("Women's Safety Device Ready");
+}
+
+void loop() {
+
+  
+  if (digitalRead(buttonPin) == LOW) {
+
+    Serial.println("Emergency Detected!");
+    Serial.println("Sending Alert...");
+
+    digitalWrite(ledPin, HIGH);
+    tone(buzzerPin, 1000);   
+
+    delay(3000);             
+    noTone(buzzerPin);
+    digitalWrite(ledPin, LOW);
+
+    
+    while (digitalRead(buttonPin) == LOW) {
+      delay(10);
+    }
+
+    delay(200); 
+  }
+}
